@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\TestController;
+use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,5 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {return view('main');});
-Route::get('test', function () {return view('test', ['availableSlots' => null]);});
-Route::Post('test', [TestController::class, 'getVisits']);
+
+//auth
+Route::get('/login', [AuthController::class, 'showLogin']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::get('/register', [AuthController::class, 'showRegister']);
+Route::post('/register', [AuthController::class, 'registerPatient']);
+Route::get('/logout', [AuthController::class, 'logout']);
