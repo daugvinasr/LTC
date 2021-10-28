@@ -8,11 +8,12 @@
 </head>
 
 <body>
-<div class="bg-blue-300 mb-8 shadow-lg ">
+<div class="bg-blue-300 mb-8 shadow-lg">
     <div class="container mx-auto">
         <div class="flex items-center justify-center">
             <h1 class="block px-5 py-4 text-white font-bold text-2xl">Ligų tyrimų centras</h1>
         </div>
+
         <div class="flex items-center justify-center">
             <a href="/" class="block px-5 py-4 text-white bg-blue-500">Pagrindinis</a>
 
