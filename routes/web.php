@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VisitsController;
 use Illuminate\Support\Facades\Route;
-
+use \App\Http\Middleware\AuthPermissions;
+use \App\Http\Middleware\DoctorPermissions;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,11 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {return view('main');});
 
-//auth
-Route::get('/login', [AuthController::class, 'showLogin']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/register', [AuthController::class, 'showRegister']);
-Route::post('/register', [AuthController::class, 'registerPatient']);
+
+
+Route::get('/', function () {return view('main');});
+Route::get('/login', [AuthController::class, 'showLogin'])->middleware(AuthPermissions::class);
+Route::post('/login', [AuthController::class, 'login'])->middleware(AuthPermissions::class);
+Route::get('/register', [AuthController::class, 'showRegister'])->middleware(AuthPermissions::class);
+Route::post('/register', [AuthController::class, 'registerPatient'])->middleware(AuthPermissions::class);
 Route::get('/logout', [AuthController::class, 'logout']);
+
+
+Route::get('/visits', [VisitsController::class, 'showVisits'])->middleware(DoctorPermissions::class);
+
+
+
+
