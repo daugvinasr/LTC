@@ -13,11 +13,12 @@
                             </tr>
                             </thead>
                             <tbody class="bg-white">
-                            @yield('tableData')
+                                @yield('tableData')
                             </tbody>
                         </table>
                     </div>
                 </div>
+                @yield('inputFields')
             </section>
         </div>
     </section>

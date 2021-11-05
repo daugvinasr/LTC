@@ -1,4 +1,4 @@
-Tema 11ag_c Ligų tyrimų centras
+2Tema 11ag_c Ligų tyrimų centras
 
 Administratorius registruoja gydytojus, jų specialybes, darbo laiko tvarkaraščius
 
@@ -12,5 +12,4 @@ Prisiregistravęs vartotojas (pacientas): gali užsirašyti pas gydytoją neuži
 
 Prisiregistravęs vartotojas: gali atšaukti vizitą pas gydytoją
 Prisiregistravęs vartotojas: pacientas, kuris atsiliko laboratorijoje tyrimą, mato tyrimo būseną (neatliktas, apdorojamas (pas laborantą), išsiųstas patvirtinti (pas gydytoją), tyrimai pas gydytoją)
-
 
