@@ -38,6 +38,20 @@
                 </button>
             </div>
         </form>
+
+        <div class="grid place-items-center">
+            <h1 class="py-5">Laisvi laikai:</h1>
+            <div class="flex flex-row">
+                @for ($x = 0; $x < 24; $x++)
+                    @if($timeTable[$x] == 1)
+                        <div class="px-2 py-2">
+                            <a href="/" class="block w-16 h-8 py-1 text-white bg-blue-500 shadow-lg rounded-lg text-center">{{$x}}:00</a>
+                        </div>
+                    @endif
+                @endfor
+            </div>
+        </div>
+
     @endif
 
 

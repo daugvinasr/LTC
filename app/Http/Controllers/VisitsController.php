@@ -83,6 +83,7 @@ class VisitsController extends Controller
                     ['id_user', '!=', request('selectedDoctor')],
                 ])
                 ->get();
+
             $selectedDoctorData = users::select('*')
                 ->where([
                     ['role', '=', 'doctor'],
@@ -90,11 +91,27 @@ class VisitsController extends Controller
                 ])
                 ->get();
 
+            $timeTable = [
+                '0' => 0, '1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0, '7' => 0, '8' => 0, '9' => 0, '10' => 0, '11' => 0, '12' => 0, '13' => 0, '14' => 0, '15' => 0, '16' => 0, '17' => 0, '18' => 0, '19' => 0, '20' => 0, '21' => 0, '22' => 0, '23' => 0, '24' => 0
+            ];
+
             for ($x = $selectedDoctorData[0]->worksFrom; $x <= $selectedDoctorData[0]->worksTo; $x++) {
-                error_log("The number is: $x <br>");
+                $timeTable[$x]=1;
             }
 
-            return view('booking',['doctorData' => $doctorData,'selectedDoctorData' => $selectedDoctorData]);
+            $visitsCurrentDay = visits::select('*')
+                ->where([
+                    ['visitDate', '=', request('date')],
+                    ['fk_doctor', '=', request('selectedDoctor')],
+                ])
+                ->get();
+
+            foreach ($visitsCurrentDay as $data)
+            {
+                $timeTable[$data->visitTime]=2;
+            }
+
+            return view('booking',['doctorData' => $doctorData,'selectedDoctorData' => $selectedDoctorData,'timeTable' => $timeTable]);
         }
 
     }
