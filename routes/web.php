@@ -29,8 +29,11 @@ Route::get('/analysis/{id_visit}', [VisitsController::class, 'analysisForward'])
 
 //patient
 Route::get('/visitsPatient', [VisitsController::class, 'showVisitsForPatient']);
-Route::get('/booking', [VisitsController::class, 'bookings']);
+
+Route::get('/booking', [VisitsController::class, 'showBookings']);
 Route::post('/booking', [VisitsController::class, 'bookings']);
+
+Route::get('/deleteVisit/{id}', [VisitsController::class, 'patientDeleteVisit']);
 
 //comments
 Route::get('/comments/{id_visit}/{id_patient}', [CommentController::class, 'showComments']);

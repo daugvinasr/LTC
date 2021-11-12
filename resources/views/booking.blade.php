@@ -39,18 +39,46 @@
             </div>
         </form>
 
-        <div class="grid place-items-center">
-            <h1 class="py-5">Laisvi laikai:</h1>
-            <div class="flex flex-row">
-                @for ($x = 0; $x < 24; $x++)
-                    @if($timeTable[$x] == 1)
-                        <div class="px-2 py-2">
-                            <a href="/" class="block w-16 h-8 py-1 text-white bg-blue-500 shadow-lg rounded-lg text-center">{{$x}}:00</a>
-                        </div>
-                    @endif
-                @endfor
+
+
+
+        <form method="POST">
+            @csrf
+            <div class="grid place-items-center">
+                <h1 class="py-5">Laisvi laikai:</h1>
+                <div class="flex flex-col">
+                    <div class="grid place-items-center">
+                        <select name="selectedTime" id="selectedTime">
+                            <option value="notchosen">Pasirinkitę jums tinkamą laiką</option>
+                        @for ($x = 0; $x < 24; $x++)
+                                @if($timeTable[$x] == 1)
+                                    <option value="{{$x}}">{{$x}}:00</option>
+                                @endif
+                            @endfor
+                        </select>
+                    </div>
+
+                    <div class="py-4">
+                        <label class="inline-flex items-center mt-3">
+                            <input type="checkbox" name="selectedAnalysis" value="YES" class="form-checkbox h-5 w-5 text-gray-600"><span class="ml-2 text-gray-700">Ar jūms reikalingi tyrimai?</span>
+                        </label>
+                    </div>
+
+                    <input class="hidden" name="selectedDoctor" type="text" value="{{$selectedDoctorData[0]->id_user}}">
+                    <input class="hidden" name="patientDate" type="text" value="{{request('date')}}">
+
+
+                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        registruotis
+                    </button>
+
+
+                </div>
             </div>
-        </div>
+        </form>
+
+
+
 
     @endif
 

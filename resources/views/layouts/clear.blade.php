@@ -23,6 +23,7 @@
             <a href="/visitsPatient" class="block px-5 py-4 text-white bg-blue-600 shadow-lg rounded-lg">Paciento vizitai</a>
             <a href="/analysis" class="block px-5 py-4 text-white bg-blue-600 shadow-lg rounded-lg">Būsimi tyrimai</a>
             <a href="/doctors" class="block px-5 py-4 text-white bg-blue-600 shadow-lg rounded-lg">Daktarai</a>
+            <a href="/booking" class="block px-5 py-4 text-white bg-blue-200 shadow-lg rounded-lg">Užsiregistuoti į vizitą</a>
 
 
         @if(session('role') == 'patient')
