@@ -46,7 +46,7 @@
                 <a href="/logout" class="block px-5 py-4 text-white bg-blue-200 shadow-lg rounded-lg">Atsijungti</a>
 
             @else
-                <a href="/login" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Prisijunkti</a>
+                <a href="/login" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Prisijungti</a>
                 <a href="/register" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Registuotis</a>
 
             @endif

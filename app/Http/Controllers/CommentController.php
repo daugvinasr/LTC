@@ -13,6 +13,7 @@ class CommentController extends Controller
         $commentsData = comments::select('*')
             ->where([
                 ['fk_visit','=',$id_visit],
+                ['fk_patient','=',$id_patient],
             ])
             ->get();
         return view('comment', ['commentsData' => $commentsData]);

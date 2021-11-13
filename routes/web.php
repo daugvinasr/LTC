@@ -13,6 +13,7 @@ use \App\Http\Middleware\AdminPermissions;
 use \App\Http\Middleware\AnalystPermissions;
 use \App\Http\Middleware\RegisteredUserPermissions;
 use \App\Http\Middleware\DoctorAnalystPermissions;
+use \App\Http\Middleware\DoctorAnalystUserPermissions;
 
 
 //visitor
@@ -37,7 +38,7 @@ Route::post('/booking', [VisitsController::class, 'bookings'])->middleware(Regis
 Route::get('/deleteVisit/{id}', [VisitsController::class, 'patientDeleteVisit'])->middleware(RegisteredUserPermissions::class);
 
 //comments
-Route::get('/comments/{id_visit}/{id_patient}', [CommentController::class, 'showComments'])->middleware(DoctorAnalystPermissions::class);
+Route::get('/comments/{id_visit}/{id_patient}', [CommentController::class, 'showComments'])->middleware(DoctorAnalystUserPermissions::class);
 Route::post('/comments/{id_visit}/{id_patient}', [CommentController::class, 'addComment'])->middleware(DoctorAnalystPermissions::class);
 
 //admin
