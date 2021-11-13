@@ -133,8 +133,6 @@ class VisitsController extends Controller
 
           if(request('selectedTime')!= 'notchosen' )
           {
-
-
               $visit = new visits();
               $visit -> registrationDate = date('Y-m-d');
               $visit -> visitDate = request('patientDate');
