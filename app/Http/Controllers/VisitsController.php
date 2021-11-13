@@ -22,7 +22,13 @@ class VisitsController extends Controller
 
     public function patientDeleteVisit($id)
     {
-        visits::where('id_visit','=',$id)->delete();
+
+            visits::where([
+                ['id_visit', '=', $id],
+                ['fk_patient', '=', session('id_user')],
+            ])
+            ->delete();
+
         return redirect('/visitsPatient');
     }
 

@@ -17,30 +17,38 @@
         <div class="flex items-center justify-center">
 
             <a href="/" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Pagrindinis</a>
-            <a href="/login" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Prisijunkti</a>
-            <a href="/register" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Registuotis</a>
-            <a href="/visitsDoctor" class="block px-5 py-4 text-white bg-blue-600 shadow-lg rounded-lg">Būsimi vizitai</a>
-            <a href="/visitsPatient" class="block px-5 py-4 text-white bg-blue-600 shadow-lg rounded-lg">Paciento vizitai</a>
-            <a href="/analysis" class="block px-5 py-4 text-white bg-blue-600 shadow-lg rounded-lg">Būsimi tyrimai</a>
-            <a href="/doctors" class="block px-5 py-4 text-white bg-blue-600 shadow-lg rounded-lg">Daktarai</a>
-            <a href="/booking" class="block px-5 py-4 text-white bg-blue-200 shadow-lg rounded-lg">Užsiregistuoti į vizitą</a>
+
+
 
 
         @if(session('role') == 'patient')
                 <a href="" class="block px-5 py-4 text-white bg-blue-400 shadow-lg rounded-lg">Pacientas {{session('firstLastName')}}</a>
+                <a href="/booking" class="block px-5 py-4 text-white bg-blue-200 shadow-lg rounded-lg">Užsiregistuoti į vizitą</a>
+                <a href="/visitsPatient" class="block px-5 py-4 text-white bg-blue-600 shadow-lg rounded-lg">Paciento vizitai</a>
                 <a href="/logout" class="block px-5 py-4 text-white bg-blue-200 shadow-lg rounded-lg">Atsijungti</a>
+
 
             @elseif(session('role') == "doctor")
                 <a href="" class="block px-5 py-4 text-white bg-blue-400 shadow-lg rounded-lg">Daktaras {{session('firstLastName')}}</a>
+                <a href="/visitsDoctor" class="block px-5 py-4 text-white bg-blue-600 shadow-lg rounded-lg">Būsimi vizitai</a>
                 <a href="/logout" class="block px-5 py-4 text-white bg-blue-200 shadow-lg rounded-lg">Atsijungti</a>
+
 
             @elseif(session('role') == 'admin')
                 <a href="" class="block px-5 py-4 text-white bg-blue-400 shadow-lg rounded-lg">Administratorius {{session('firstLastName')}}</a>
+                <a href="/doctors" class="block px-5 py-4 text-white bg-blue-600 shadow-lg rounded-lg">Daktarai</a>
                 <a href="/logout" class="block px-5 py-4 text-white bg-blue-200 shadow-lg rounded-lg">Atsijungti</a>
+
 
             @elseif(session('role') == 'analyst')
                 <a href="" class="block px-5 py-4 text-white bg-blue-400 shadow-lg rounded-lg">Laborantas {{session('firstLastName')}}</a>
+                <a href="/analysis" class="block px-5 py-4 text-white bg-blue-600 shadow-lg rounded-lg">Būsimi tyrimai</a>
                 <a href="/logout" class="block px-5 py-4 text-white bg-blue-200 shadow-lg rounded-lg">Atsijungti</a>
+
+            @else
+                <a href="/login" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Prisijunkti</a>
+                <a href="/register" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Registuotis</a>
+
             @endif
 
         </div>

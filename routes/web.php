@@ -10,35 +10,36 @@ use App\Http\Controllers\CommentController;
 use \App\Http\Middleware\AuthPermissions;
 use \App\Http\Middleware\DoctorPermissions;
 use \App\Http\Middleware\AdminPermissions;
+use \App\Http\Middleware\AnalystPermissions;
+use \App\Http\Middleware\RegisteredUserPermissions;
+use \App\Http\Middleware\DoctorAnalystPermissions;
 
 
 //visitor
 Route::get('/', function () {return view('main');});
-Route::get('/login', [AuthController::class, 'showLogin']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::get('/register', [AuthController::class, 'showRegister']);
-Route::post('/register', [AuthController::class, 'registerPatient']);
+Route::get('/login', [AuthController::class, 'showLogin'])->middleware(AuthPermissions::class);
+Route::post('/login', [AuthController::class, 'login'])->middleware(AuthPermissions::class);
+Route::get('/register', [AuthController::class, 'showRegister'])->middleware(AuthPermissions::class);
+Route::post('/register', [AuthController::class, 'registerPatient'])->middleware(AuthPermissions::class);
 Route::get('/logout', [AuthController::class, 'logout']);
 
 //doctor
-Route::get('/visitsDoctor', [VisitsController::class, 'showVisitsForDoctor']);
+Route::get('/visitsDoctor', [VisitsController::class, 'showVisitsForDoctor'])->middleware(DoctorPermissions::class);
 
 //analyst
-Route::get('/analysis', [VisitsController::class, 'showVisitsForAnalyst']);
-Route::get('/analysis/{id_visit}', [VisitsController::class, 'analysisForward']);
+Route::get('/analysis', [VisitsController::class, 'showVisitsForAnalyst'])->middleware(AnalystPermissions::class);
+Route::get('/analysis/{id_visit}', [VisitsController::class, 'analysisForward'])->middleware(AnalystPermissions::class);
 
 //patient
-Route::get('/visitsPatient', [VisitsController::class, 'showVisitsForPatient']);
-
-Route::get('/booking', [VisitsController::class, 'showBookings']);
-Route::post('/booking', [VisitsController::class, 'bookings']);
-
-Route::get('/deleteVisit/{id}', [VisitsController::class, 'patientDeleteVisit']);
+Route::get('/visitsPatient', [VisitsController::class, 'showVisitsForPatient'])->middleware(RegisteredUserPermissions::class);
+Route::get('/booking', [VisitsController::class, 'showBookings'])->middleware(RegisteredUserPermissions::class);
+Route::post('/booking', [VisitsController::class, 'bookings'])->middleware(RegisteredUserPermissions::class);
+Route::get('/deleteVisit/{id}', [VisitsController::class, 'patientDeleteVisit'])->middleware(RegisteredUserPermissions::class);
 
 //comments
-Route::get('/comments/{id_visit}/{id_patient}', [CommentController::class, 'showComments']);
-Route::post('/comments/{id_visit}/{id_patient}', [CommentController::class, 'addComment']);
+Route::get('/comments/{id_visit}/{id_patient}', [CommentController::class, 'showComments'])->middleware(DoctorAnalystPermissions::class);
+Route::post('/comments/{id_visit}/{id_patient}', [CommentController::class, 'addComment'])->middleware(DoctorAnalystPermissions::class);
 
 //admin
-Route::get('/doctors', [AdminController::class, 'showDoctors']);
-Route::post('/doctors', [AdminController::class, 'registerDoctors']);
+Route::get('/doctors', [AdminController::class, 'showDoctors'])->middleware(AdminPermissions::class);
+Route::post('/doctors', [AdminController::class, 'registerDoctors'])->middleware(AdminPermissions::class);

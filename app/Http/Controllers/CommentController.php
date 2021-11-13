@@ -31,6 +31,20 @@ class CommentController extends Controller
         $comment->fk_visit = $id_visit;
         $comment->fk_patient = $id_patient;
         $comment->save();
-        return redirect('/analysis');
+
+        if(session('role') == 'analyst')
+        {
+            return redirect('/analysis');
+        }
+        elseif (session('role') == 'doctor')
+        {
+            return redirect('/visitsDoctor');
+        }
+        else
+        {
+            return redirect('/');
+        }
+
+
     }
 }
