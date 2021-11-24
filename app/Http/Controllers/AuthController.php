@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\users;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
@@ -19,23 +20,18 @@ class AuthController extends Controller
             'password' => 'required|max:254'
         ]);
 
-        $data = users::select('*')
-            ->where([
-                ['email','=',request('email')],
-                ['password','=',request('password')]
-            ])
-                ->get();
+        $data = users::select('*')->where([['email','=',request('email')]])->get();
 
-        if(count($data) == 0)
-        {
-            return back()->with('loginFail', 'Įvesti neteisingi duomenys.');
-        }
-        else
+        if(Hash::check(request('password'), $data[0]->password))
         {
             Session::put('id_user',$data[0]->id_user);
             Session::put('firstLastName',$data[0]->firstLastName);
             Session::put('role',$data[0]->role);
             return redirect('/');
+        }
+        else
+        {
+            return back()->with('loginFail', 'Įvesti neteisingi duomenys.');
         }
     }
 
@@ -55,7 +51,7 @@ class AuthController extends Controller
         $patient = new users();
         $patient->firstLastName = request('firstLastName');
         $patient->email = request('email');
-        $patient->password = request('password');
+        $patient->password = Hash::make(request('password'));
         $patient->role = 'patient';
         $patient->save();
 

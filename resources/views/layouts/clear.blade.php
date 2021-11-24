@@ -18,9 +18,6 @@
 
             <a href="/" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Pagrindinis</a>
 
-
-
-
         @if(session('role') == 'patient')
                 <a href="" class="block px-5 py-4 text-white bg-blue-400 shadow-lg rounded-lg">Pacientas {{session('firstLastName')}}</a>
                 <a href="/booking" class="block px-5 py-4 text-white bg-blue-200 shadow-lg rounded-lg">Užsiregistuoti į vizitą</a>
