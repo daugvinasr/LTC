@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\comments;
 use App\Models\visits;
 use App\Models\users;
 use Illuminate\Http\Request;
@@ -22,16 +23,20 @@ class VisitsController extends Controller
 
     public function patientDeleteVisit($id)
     {
+        comments::where([
+            ['fk_visit', '=', $id],
+            ['fk_patient', '=', session('id_user')],
+        ])
+            ->delete();
 
-            visits::where([
-                ['id_visit', '=', $id],
-                ['fk_patient', '=', session('id_user')],
-            ])
+        visits::where([
+            ['id_visit', '=', $id],
+            ['fk_patient', '=', session('id_user')],
+        ])
             ->delete();
 
         return redirect('/visitsPatient');
     }
-
 
 
     public function showVisitsForAnalyst()
@@ -55,12 +60,9 @@ class VisitsController extends Controller
         $visitData = visits::where('id_visit', $id_visit);
         $temp = $visitData->get();
 
-        if ($temp[0]->analysisStatus == 'notStarted')
-        {
+        if ($temp[0]->analysisStatus == 'notStarted') {
             $visitData->update(['analysisStatus' => 'inLabaratory']);
-        }
-        elseif ($temp[0]->analysisStatus == 'inLabaratory')
-        {
+        } elseif ($temp[0]->analysisStatus == 'inLabaratory') {
             $visitData->update(['analysisStatus' => 'sentToDoctor']);
         }
 
@@ -86,80 +88,73 @@ class VisitsController extends Controller
             ])
             ->get();
 
-        return view('booking',['doctorData' => $doctorData]);
+        return view('booking', ['doctorData' => $doctorData]);
     }
 
 
     public function bookings()
     {
-          if (request('date') != null)
-          {
-              $doctorData = users::select('*')
-                  ->where([
-                      ['role', '=', 'doctor'],
-                      ['id_user', '!=', request('selectedDoctor')],
-                  ])
-                  ->get();
+        if (request('date') != null) {
+            $doctorData = users::select('*')
+                ->where([
+                    ['role', '=', 'doctor'],
+                    ['id_user', '!=', request('selectedDoctor')],
+                ])
+                ->get();
 
-              $selectedDoctorData = users::select('*')
-                  ->where([
-                      ['role', '=', 'doctor'],
-                      ['id_user', '=', request('selectedDoctor')],
-                  ])
-                  ->get();
+            $selectedDoctorData = users::select('*')
+                ->where([
+                    ['role', '=', 'doctor'],
+                    ['id_user', '=', request('selectedDoctor')],
+                ])
+                ->get();
 
-              $timeTable = [
-                  '0' => 0, '1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0, '7' => 0, '8' => 0, '9' => 0, '10' => 0, '11' => 0, '12' => 0, '13' => 0, '14' => 0, '15' => 0, '16' => 0, '17' => 0, '18' => 0, '19' => 0, '20' => 0, '21' => 0, '22' => 0, '23' => 0, '24' => 0
-              ];
+            $timeTable = [
+                '0' => 0, '1' => 0, '2' => 0, '3' => 0, '4' => 0, '5' => 0, '6' => 0, '7' => 0, '8' => 0, '9' => 0, '10' => 0, '11' => 0, '12' => 0, '13' => 0, '14' => 0, '15' => 0, '16' => 0, '17' => 0, '18' => 0, '19' => 0, '20' => 0, '21' => 0, '22' => 0, '23' => 0, '24' => 0
+            ];
 
-              for ($x = $selectedDoctorData[0]->worksFrom; $x <= $selectedDoctorData[0]->worksTo; $x++) {
-                  $timeTable[$x]=1;
-              }
+            for ($x = $selectedDoctorData[0]->worksFrom; $x <= $selectedDoctorData[0]->worksTo; $x++) {
+                $timeTable[$x] = 1;
+            }
 
-              $visitsCurrentDay = visits::select('*')
-                  ->where([
-                      ['visitDate', '=', request('date')],
-                      ['fk_doctor', '=', request('selectedDoctor')],
-                  ])
-                  ->get();
+            $visitsCurrentDay = visits::select('*')
+                ->where([
+                    ['visitDate', '=', request('date')],
+                    ['fk_doctor', '=', request('selectedDoctor')],
+                ])
+                ->get();
 
-              foreach ($visitsCurrentDay as $data)
-              {
-                  $timeTable[$data->visitTime]=2;
-              }
+            foreach ($visitsCurrentDay as $data) {
+                $timeTable[$data->visitTime] = 2;
+            }
 
-              return view('booking',['doctorData' => $doctorData,'selectedDoctorData' => $selectedDoctorData,'timeTable' => $timeTable]);
+            return view('booking', ['doctorData' => $doctorData, 'selectedDoctorData' => $selectedDoctorData, 'timeTable' => $timeTable]);
 
-          }
-          if (request('date') == null && request('selectedTime') == null)
-          {
-              return redirect('/booking');
-          }
+        }
+        if (request('date') == null && request('selectedTime') == null) {
+            return redirect('/booking');
+        }
 
 
-          if(request('selectedTime')!= 'notchosen' )
-          {
-              $visit = new visits();
-              $visit -> registrationDate = date('Y-m-d');
-              $visit -> visitDate = request('patientDate');
-              $visit -> visitTime = request('selectedTime');
+        if (request('selectedTime') != 'notchosen') {
+            $visit = new visits();
+            $visit->registrationDate = date('Y-m-d');
+            $visit->visitDate = request('patientDate');
+            $visit->visitTime = request('selectedTime');
 
-              if(request('selectedAnalysis') == 'YES')
-              {
-                  $visit -> analysisRequestedByPatient = 1;
-              }
-              else
-              {
-                  $visit -> analysisRequestedByPatient = 0;
-              }
+            if (request('selectedAnalysis') == 'YES') {
+                $visit->analysisRequestedByPatient = 1;
+            } else {
+                $visit->analysisRequestedByPatient = 0;
+            }
 
-              $visit -> analysisStatus = 'notStarted';
-              $visit -> fk_doctor = request('selectedDoctor');
-              $visit -> fk_patient = session('id_user');
-              $visit->save();
+            $visit->analysisStatus = 'notStarted';
+            $visit->fk_doctor = request('selectedDoctor');
+            $visit->fk_patient = session('id_user');
+            $visit->save();
 
-              return redirect('/visitsPatient');
-          }
+            return redirect('/visitsPatient');
+        }
 
         return redirect('/booking');
     }

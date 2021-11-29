@@ -22,7 +22,8 @@ class AuthController extends Controller
 
         $data = users::select('*')->where([['email','=',request('email')]])->get();
 
-        if(Hash::check(request('password'), $data[0]->password))
+
+        if(!$data->isEmpty() && Hash::check(request('password'), $data[0]->password))
         {
             Session::put('id_user',$data[0]->id_user);
             Session::put('firstLastName',$data[0]->firstLastName);

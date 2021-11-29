@@ -1,6 +1,7 @@
-panaudos diagrama
-delete fix
+delete fix -- done
 passwords -- done
-specialybiu dropdown
-specialybiu validation nera tokiu paciu
+specialybiu dropdown -- done
+specialybiu validation nera tokiu paciu -- done
+ivesta bloga informacija registracijoje ar logine (dabar nieko nerodo)
+panaudos diagrama
 

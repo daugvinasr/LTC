@@ -71,8 +71,11 @@
                     <label class="block text-gray-700 text-sm font-bold mb-2">
                         specialybė
                     </label>
-                    <input class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" name="specialty" type="text">
-                    @error('specialty') {{$message}} @enderror
+                    <select name="specialty">
+                        @foreach($doctorSpecialties as $data)
+                            <option value="{{$data->specialty}}">{{$data->specialty}}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="grid place-items-center">
                     <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">

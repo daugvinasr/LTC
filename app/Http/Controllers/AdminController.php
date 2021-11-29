@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\specialties;
 use App\Models\users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
@@ -15,7 +17,13 @@ class AdminController extends Controller
             ])
             ->get();
 
-        return view('doctors', ['doctorData' => $doctorData]);
+        $doctorSpecialties = specialties::select('*')
+            ->where([
+                ['available','=',0],
+            ])
+            ->get();
+
+        return view('doctors', ['doctorData' => $doctorData,'doctorSpecialties' => $doctorSpecialties]);
     }
 
     public function registerDoctors()
@@ -32,12 +40,17 @@ class AdminController extends Controller
         $doctor = new users();
         $doctor->firstLastName = request('firstLastName');
         $doctor->email = request('email');
-        $doctor->password = request('password');
+        $doctor->password = Hash::make(request('password'));
         $doctor->role = 'doctor';
         $doctor->worksFrom = request('worksFrom');
         $doctor->worksTo = request('worksTo');
         $doctor->specialty = request('specialty');
         $doctor->save();
+
+        $specialtyData = specialties::where('specialty', request('specialty'));
+        $specialtyData->update(['available' => 1]);
+
+
 
         return redirect('/doctors');
 
