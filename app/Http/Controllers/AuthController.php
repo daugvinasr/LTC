@@ -20,19 +20,16 @@ class AuthController extends Controller
             'password' => 'required|max:254'
         ]);
 
-        $data = users::select('*')->where([['email','=',request('email')]])->get();
+        $data = users::select('*')->where([['email', '=', request('email')]])->get();
 
 
-        if(!$data->isEmpty() && Hash::check(request('password'), $data[0]->password))
-        {
-            Session::put('id_user',$data[0]->id_user);
-            Session::put('firstLastName',$data[0]->firstLastName);
-            Session::put('role',$data[0]->role);
+        if (!$data->isEmpty() && Hash::check(request('password'), $data[0]->password)) {
+            Session::put('id_user', $data[0]->id_user);
+            Session::put('firstLastName', $data[0]->firstLastName);
+            Session::put('role', $data[0]->role);
             return redirect('/');
-        }
-        else
-        {
-            return back()->with('loginFail', 'Įvesti neteisingi duomenys.');
+        } else {
+            return back()->withErrors(['loginFail' => 'Įvesti neteisingi duomenys.']);
         }
     }
 
