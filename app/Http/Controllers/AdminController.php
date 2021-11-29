@@ -13,17 +13,17 @@ class AdminController extends Controller
     {
         $doctorData = users::select('*')
             ->where([
-                ['role','=','doctor'],
+                ['role', '=', 'doctor'],
             ])
             ->get();
 
         $doctorSpecialties = specialties::select('*')
             ->where([
-                ['available','=',0],
+                ['available', '=', 0],
             ])
             ->get();
 
-        return view('doctors', ['doctorData' => $doctorData,'doctorSpecialties' => $doctorSpecialties]);
+        return view('doctors', ['doctorData' => $doctorData, 'doctorSpecialties' => $doctorSpecialties]);
     }
 
     public function registerDoctors()
@@ -49,8 +49,6 @@ class AdminController extends Controller
 
         $specialtyData = specialties::where('specialty', request('specialty'));
         $specialtyData->update(['available' => 1]);
-
-
 
         return redirect('/doctors');
 

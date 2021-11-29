@@ -20,19 +20,19 @@
                 <a href="/" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Pagrindinis</a>
             </div>
 
-        @if(session('role') == 'patient')
-            <div class="p-2">
-                <a href="" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg border-solid">Pacientas {{session('firstLastName')}}</a>
-            </div>
-            <div class="p-2">
-                <a href="/booking" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Užsiregistuoti į vizitą</a>
-            </div>
-            <div class="p-2">
-                <a href="/visitsPatient" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Paciento vizitai</a>
-            </div>
-            <div class="p-2">
-                <a href="/logout" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Atsijungti</a>
-            </div>
+            @if(session('role') == 'patient')
+                <div class="p-2">
+                    <a href="" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg border-solid">Pacientas {{session('firstLastName')}}</a>
+                </div>
+                <div class="p-2">
+                    <a href="/booking" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Užsiregistuoti į vizitą</a>
+                </div>
+                <div class="p-2">
+                    <a href="/visitsPatient" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Paciento vizitai</a>
+                </div>
+                <div class="p-2">
+                    <a href="/logout" class="block px-5 py-4 text-white bg-blue-500 shadow-lg rounded-lg">Atsijungti</a>
+                </div>
 
 
             @elseif(session('role') == "doctor")
