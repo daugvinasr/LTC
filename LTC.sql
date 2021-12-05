@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: db
--- Generation Time: Dec 05, 2021 at 02:05 PM
+-- Generation Time: Dec 05, 2021 at 02:16 PM
 -- Server version: 10.6.4-MariaDB-1:10.6.4+maria~focal
 -- PHP Version: 7.4.24
 
@@ -35,6 +35,15 @@ CREATE TABLE `comments` (
   `fk_visit` int(11) NOT NULL,
   `fk_patient` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `comments`
+--
+
+INSERT INTO `comments` (`message`, `createdAt`, `id_Comment`, `fk_staff`, `fk_visit`, `fk_patient`) VALUES
+('Reikia tokiu ir tokiu tyrimu', '2021-12-05 14:15:49', 34, 15, 21, 17),
+('va siunčiu', '2021-12-05 14:15:56', 35, 16, 21, 17),
+('gavau ačiū', '2021-12-05 14:16:01', 36, 15, 21, 17);
 
 -- --------------------------------------------------------
 
@@ -85,7 +94,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`email`, `password`, `role`, `firstLastName`, `worksFrom`, `worksTo`, `specialty`, `id_user`) VALUES
 ('admin@admin.lt', '$2y$10$8jekQGX8Ir1pmpM0z/xCkO4WNe1rxpSCyHb2mBLIcFP0xZRBlemq6', 'admin', 'Andrius Bagdonas', NULL, NULL, NULL, 14),
 ('daktaras@daktaras.lt', '$2y$10$ZiuXqAHnn52hqZo0WvzJnOiSzjSAMCDPwRb/a1zgry9EvwrE8Knom', 'doctor', 'Zigmantas Balčytis', 9, 15, 'Kardiologas', 15),
-('laborantas@laborantas.lt', '$2y$10$Q.SluI6C6hdgr2jg5sDbqeTUDUujaLEV9hTh26oDYGyJhqjceN9hC', 'analyst', 'Juozas Baublys', NULL, NULL, NULL, 16),
+('laborantas@laborantas.lt', '$2y$10$Q.SluI6C6hdgr2jg5sDbqeTUDUujaLEV9hTh26oDYGyJhqjceN9hC', 'analyst', 'Juozas Baublys', NULL, NULL, 'Laborantas', 16),
 ('tomas@tomas.lt', '$2y$10$ba0YZvoY6Ft3JAJLLFedU./8FRjPLDOjVKkDPYlIkfb5jWQCbCPoi', 'patient', 'Tomas Bičiūnas', NULL, NULL, NULL, 17),
 ('daktaras2@daktaras2.lt', '$2y$10$ZiuXqAHnn52hqZo0WvzJnOiSzjSAMCDPwRb/a1zgry9EvwrE8Knom', 'doctor', 'Paulius Daktaravičius', 14, 19, 'Kineziterapeutas', 21),
 ('petras@petras.lt', '$2y$10$vCM/hrfdIRJktuR4tR/79eedc4WUJEMfpVwtHSdPm3PT84iiUbd/2', 'doctor', 'Petras Petravičius', 1, 10, 'Okulistas', 22);
@@ -150,7 +159,7 @@ ALTER TABLE `visits`
 -- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id_Comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id_Comment` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `users`
