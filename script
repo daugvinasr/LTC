@@ -1,0 +1,16 @@
+sudo add-apt-repository ppa:ondrej/php -y
+sudo apt-get update -y
+sudo apt-get install php8.0 -y
+sudo apt-get install php8.0-mysql -y
+sudo apt-get update
+sudo apt-get install composer -y
+sudo apt-get install php-curl -y
+sudo apt-get install php-mbstring -y
+sudo apt install php-xml -y
+composer install -y
+#sudo apt-get update
+#sudo apt install software-properties-common apt-transport-https wget
+#wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+#sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+#sudo apt-get update
+#sudo apt install code
