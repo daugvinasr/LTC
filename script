@@ -7,7 +7,7 @@ sudo apt-get install composer -y
 sudo apt-get install php-curl -y
 sudo apt-get install php-mbstring -y
 sudo apt install php-xml -y
-composer install -y
+composer install
 #sudo apt-get update
 #sudo apt install software-properties-common apt-transport-https wget
 #wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
