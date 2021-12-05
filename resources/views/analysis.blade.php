@@ -23,7 +23,9 @@
             <td class="px-4 py-3 text-ms font-semibold border text-center">{{ $data->patientIdToText->firstLastName}}</td>
             <td class="px-4 py-3 text-ms font-semibold border text-center">{{ ($data->analysisStatus == 'notStarted' ? 'Nepradėta' : ($data->analysisStatus == 'inLabaratory' ? 'Laboratorijoje' : 'Išsiųsta gydytojui')) }}
                 <br>
-                <a href="/analysis/{{$data->id_visit}}" class="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit"></a>
+                <br>
+
+                <a href="/analysis/{{$data->id_visit}}" class="bg-blue-300 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">➜</a>
             </td>
             <td class="px-4 py-3 text-ms font-semibold border text-center">
                 <a href="/comments/{{$data->id_visit}}/{{$data->patientIdToText->id_user}}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
