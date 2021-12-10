@@ -15,6 +15,7 @@ class VisitsController extends Controller
         $visitsData = visits::select('*')
             ->where([
                 ['fk_doctor', '=', session('id_user')],
+                ['visitDate', '>', now()]
             ])
             ->get();
 
